@@ -21,7 +21,15 @@
     <script type="text/javascript" src="vendors/jquery.slimscroll.min.js"></script>
     <script type="text/javascript" src="js/jquery.fullPage.js"></script>
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <!-- Leaflet Stuff -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+    <!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" /><![endif]-->
+    <link rel="stylesheet" href="css/map/MarkerCluster.css" />
+    <link rel="stylesheet" href="css/map/MarkerCluster.Default.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="../dist/MarkerCluster.Default.ie.css" /><![endif]-->
+    <link rel="stylesheet" href="css/map/leaflet.label.css" />
+    <link rel="stylesheet" href="css/map/screen.css" />
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -125,7 +133,20 @@
 
     <div class="section" id="section5">
         <h1>Where do Coral Live?</h1>
-        <div id="map" style="height:525px"></div>
+
+        <div class="leaflet-map">
+            <div id="map"></div>
+            <div id="filter-container">
+                <form class="form-search" class="noSelect" onSubmit="addCsvMarkers(); return false;">
+                    <div class="input-append">
+                        <input type="text" id="filter-string" class="input-medium search-query search-box" autocomplete="off">
+                        <button type="submit" class="btn search-box"><i class="icon-search"></i></button>
+                        <span class="add-on"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <h1>Benefits of Coral</h1>
         <div class="benefits">
             <img src="images/blank.jpg">
@@ -195,11 +216,15 @@
 <script src="js/jquery.event.move.js"></script>
 <script src="js/jquery.twentytwenty.js"></script>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="https://d3js.org/d3-queue.v2.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="js/render-maps.js"></script>
+<!-- Leaflet Stuff -->
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>-->
+<script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="js/map/leaflet.markercluster.js"></script>
+<script src="js/map/leaflet.geocsv.js"></script>
+<script src="js/map/leaflet.label.js"></script>
+<script src="js/map/mapconfig.js"></script>
+<script src="js/map/app.js"></script>
 
 <script>
     $(window).load(function() {
@@ -213,9 +238,6 @@
         slidesToShow: 3,
         slidesToScroll: 1
     });
-
-    // activate map
-    renderMap(mapObj);
 
 </script>
 
