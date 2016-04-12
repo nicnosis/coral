@@ -41,22 +41,9 @@ function renderMap (obj) {
 
     svg.call(zoom);
 
-// Color scale
-//     var threshold = d3.scale.threshold()
-//         .domain(obj.domain)
-//         .range(d3.range(obj.numQuantiles).map(function (i) { return "q" + i + "-" + obj.numQuantiles; }));
-
-    var valueByCountryCode = d3.map();
-
-    var q = d3_queue.queue();
-    q
-        .defer(d3.json, obj.path.topo)
-        .defer(d3.csv, obj.path.csv, function (d) { valueByCountryCode.set(d.CountryCode, +d[obj.mapParam]) })
-        .await(ready);
-
-    // The two defer calls will not be executed until ready() is
-    function ready(error, geodata) {
+    d3.json(obj.path.topo, function(error, json) {
         if (error) throw error;
+        var geodata = json;
 
         //Create a path for each map feature in the data
         features.selectAll("path")
@@ -64,12 +51,42 @@ function renderMap (obj) {
             .enter()
             .append("path")
             .attr("fill", "#666")
+            .attr("stroke", "#ccc")
             .attr("d",path)
             .on("mouseover",showTooltip)
             .on("mousemove",moveTooltip)
             .on("mouseout",hideTooltip)
             .on("click",clicked);
-    }
+    });
+
+    d3.csv(obj.path.csv, function(error, data) {
+        data.forEach(function(d) {
+            // Force numeric values for coordinates
+            d.LAT = +d.LAT;
+            d.LON = +d.LON;
+        })
+
+        console.log(data);
+
+        // add circles to svg
+        svg.selectAll("circle")
+            .data(data).enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                var coords = projection([d.LAT, d.LON]);
+                // console.log(coords[1]);
+
+                return coords[1];
+            })
+            .attr("cy", function (d) {
+                var coords = projection([d.LAT, d.LON]);
+                // console.log(coords[0]);
+
+                return coords[0];
+            })
+            .attr("r", "2px")
+            .attr("fill", "red")
+    });
 
     /***** MAP CONTROLS GO HERE ************/
 
@@ -105,5 +122,4 @@ function renderMap (obj) {
     function hideTooltip() {
         tooltip.style("display","none");
     }
-
 }
