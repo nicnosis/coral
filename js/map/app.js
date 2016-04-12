@@ -2,7 +2,7 @@ var basemap = new L.TileLayer(baseUrl, {maxZoom: 17, attribution: baseAttributio
 
 var center = new L.LatLng(0, 0);
 
-var map = new L.Map('map', {center: center, zoom: 2, maxZoom: maxZoom, layers: [basemap]});
+var map = new L.Map('map', {center: center, zoom: 3, maxZoom: maxZoom, layers: [basemap]});
 
 var popupOpts = {
     autoPanPadding: new L.Point(5, 50),
