@@ -124,8 +124,9 @@
     </div>
 
     <div class="section" id="section5">
+        <h1>Where do Coral Live?</h1>
+        <div id="map" style="height:525px"></div>
         <h1>Benefits of Coral</h1>
-        <div id="map" style="height:480px"></div>
         <div class="benefits">
             <img src="images/blank.jpg">
             <h2>Tourism</h2>
@@ -151,7 +152,6 @@
     <div class="section" id="section6">
         <h1>Threats to Coral</h1>
         <div id="tabs">
-
             <div class="threat_content" id="tabs-1">
                 <img src="images/blank.jpg">
                 <h2>Over Fishing</h2>
@@ -195,12 +195,11 @@
 <script src="js/jquery.event.move.js"></script>
 <script src="js/jquery.twentytwenty.js"></script>
 
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3-queue.v2.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="js/render-maps.js"></script>
-
-<!--<script src="http://d3js.org/d3.v3.min.js"></script>-->
-<!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
-<!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
 
 <script>
     $(window).load(function() {
@@ -214,6 +213,9 @@
         slidesToShow: 3,
         slidesToScroll: 1
     });
+
+    // activate map
+    renderMap(mapObj);
 
 </script>
 
