@@ -1,4 +1,9 @@
-var basemap = new L.TileLayer(baseUrl, {maxZoom: 17, attribution: baseAttribution, subdomains: subdomains, opacity: opacity});
+// var basemap = new L.TileLayer(baseUrl, {maxZoom: 17, attribution: baseAttribution, subdomains: subdomains, opacity: opacity});
+var basemap = new L.tileLayer(baseUrl, {
+    minZoom: minZoom,
+    maxZoom: maxZoom,
+    attribution: baseAttribution
+});
 
 var center = new L.LatLng(0, 0);
 
@@ -8,7 +13,6 @@ var popupOpts = {
     autoPanPadding: new L.Point(5, 50),
     autoPan: true
 };
-
 var points = L.geoCsv (null, {
     firstLineTitles: true,
     fieldSeparator: fieldSeparator,
@@ -24,7 +28,7 @@ var points = L.geoCsv (null, {
                 attr = '<a target="_blank" href="' + attr + '">'+ attr + '</a>';
             }
             if (attr) {
-                popup += '<tr><th>'+title+'</th><td>'+ attr +'</td></tr>';
+                popup += '<tr><th><strong>'+title+': </strong></th><td>&nbsp;'+ attr +'</td></tr>';
             }
         }
         popup += "</table></popup-content>";

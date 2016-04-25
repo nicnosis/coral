@@ -31,8 +31,9 @@ form {
 }
 
 .popup-content {
-    height: 250px;
-    overflow-y: scroll;
+    width: 250px;
+    height: auto;
+    /* overflow-y: scroll; */
 }
 
 .map-label {
