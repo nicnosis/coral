@@ -12,3 +12,4 @@ var subdomains = '1234';
 var clusterOptions = {showCoverageOnHover: false, maxClusterRadius: 50};
 var labelColumn = "Name";
 var opacity = 1.0;
+var attributionControl = false;

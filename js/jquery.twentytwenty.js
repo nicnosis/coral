@@ -1,3 +1,7 @@
+$( window ).load(function() {
+  $('#textbox1').addClass('visible');
+});
+
 (function($){
 
   $.fn.twentytwenty = function(options) {
@@ -29,7 +33,14 @@
 
       var calcOffset = function(dimensionPct) {
         var w = beforeImg.width();
-        var h = beforeImg.height();
+        var h;
+        var heightA = beforeImg.height();
+        var heightB = window.innerHeight;
+        if(heightA > heightB){
+          h = heightB;
+        }else{
+          h = heightA;
+        }
         return {
           w: w+"px",
           h: h+"px",
@@ -39,13 +50,22 @@
       };
 
       var adjustContainer = function(offset) {
+        // console.log(parseInt(offset.h));
+        var height;
+        if (parseInt(offset.h)>400){
+          height = offset.h;
+          // console.log('true');
+        } else {
+          height = '500px';
+          // console.log('false');
+        }
       	if (sliderOrientation === 'vertical') {
       	  beforeImg.css("clip", "rect(0,"+offset.w+","+offset.ch+",0)");
       	}
       	else {
-          beforeImg.css("clip", "rect(0,"+offset.cw+","+offset.h+",0)");
+          beforeImg.css("clip", "rect(0,"+offset.cw+","+height+",0)");
     	}
-        container.css("height", offset.h);
+        container.css("height", height);
       };
 
       var adjustSlider = function(pct) {
@@ -72,7 +92,7 @@
         offsetX = container.offset().left;
         offsetY = container.offset().top;
         imgWidth = beforeImg.width();
-        imgHeight = beforeImg.height();
+        imgHeight = window.innerHeight;
       });
 
       slider.on("moveend", function(e) {
@@ -80,6 +100,16 @@
       });
 
       slider.on("move", function(e) {
+        if(e.pageX/window.innerWidth >= .75){
+          $('#textbox1').addClass('visible');
+        } else{
+          $('#textbox1').removeClass('visible');
+        }
+        if(e.pageX/window.innerWidth <= .25){
+          $('#textbox2').addClass('visible');
+        } else{
+          $('#textbox2').removeClass('visible');
+        }
         if (container.hasClass("active")) {
           sliderPct = (sliderOrientation === 'vertical') ? (e.pageY-offsetY)/imgHeight : (e.pageX-offsetX)/imgWidth;
           if (sliderPct < 0) {
@@ -90,6 +120,10 @@
           }
           adjustSlider(sliderPct);
         }
+        // ADD SHOW/HIDE FUNCTION HERE
+        // console.log(e.pageX);
+        // console.log(window.innerWidth);
+
       });
 
       container.find("img").on("mousedown", function(event) {

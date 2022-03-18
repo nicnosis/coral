@@ -2,12 +2,12 @@
 var basemap = new L.tileLayer(baseUrl, {
     minZoom: minZoom,
     maxZoom: maxZoom,
-    attribution: baseAttribution
+    attribution: baseAttribution,
 });
 
 var center = new L.LatLng(0, 0);
 
-var map = new L.Map('map', {center: center, zoom: 3, maxZoom: maxZoom, layers: [basemap]});
+var map = new L.Map('map', {center: center, zoom: 3, maxZoom: maxZoom, layers: [basemap], scrollWheelZoom: false, attributionControl: false});
 
 var popupOpts = {
     autoPanPadding: new L.Point(5, 50),
@@ -51,7 +51,18 @@ var points = L.geoCsv (null, {
             }
         });
         return hit;
-    }
+    },
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon:L.icon({
+                iconUrl: './js/map/marker.png',
+                shadowUrl: './js/map/marker-shadow.png',
+                iconSize: [41,41],
+                shadowSize:   [25, 25], // size of the shadow
+                shadowAnchor: [12,-12]
+            })
+        });
+    },
 });
 
 var hits = 0;
